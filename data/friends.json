@@ -1,0 +1,132 @@
+[
+  {
+    "id": "ysr",
+    "name": "ysr",
+    "location": "天津",
+    "avatar": "/avatars/friend-1.svg",
+    "bio": "一个热爱singing的小女孩·迪士尼忠实粉丝",
+    "tags": [],
+    "tone": "pink",
+    "socials": []
+  },
+  {
+    "id": "001",
+    "name": "001",
+    "location": "合肥",
+    "avatar": "/avatars/friend-2.svg",
+    "bio": "校园里最亮眼的风景线·球类运动的忠实爱好者",
+    "tags": [],
+    "tone": "green",
+    "socials": []
+  },
+  {
+    "id": "bird",
+    "name": "bird",
+    "location": "武汉",
+    "avatar": "/avatars/friend-3.svg",
+    "bio": "一班唯一御用画家·小鸟死忠粉",
+    "tags": [],
+    "tone": "yellow",
+    "socials": []
+  },
+  {
+    "id": "fox",
+    "name": "🦊",
+    "location": "广州",
+    "avatar": "/avatars/friend-4.svg",
+    "bio": "永远最好的monitor·可爱的小蘑菇",
+    "tags": [],
+    "tone": "amber",
+    "socials": []
+  },
+  {
+    "id": "volleyball",
+    "name": "🏐",
+    "location": "北京",
+    "avatar": "/avatars/friend-5.svg",
+    "bio": "排球少女·游戏大王",
+    "tags": [],
+    "tone": "cyan",
+    "socials": []
+  },
+  {
+    "id": "xiang",
+    "name": "xiang~",
+    "location": "南京",
+    "avatar": "/avatars/friend-6.svg",
+    "bio": "萌物",
+    "tags": [],
+    "tone": "sky",
+    "socials": []
+  },
+  {
+    "id": "hzx",
+    "name": "hzx",
+    "location": "南京",
+    "avatar": "/avatars/friend-7.svg",
+    "bio": "不能吃辣硬吃之人·spider woman",
+    "tags": [],
+    "tone": "red",
+    "socials": []
+  },
+  {
+    "id": "money",
+    "name": "💰",
+    "location": "香港",
+    "avatar": "/avatars/friend-8.svg",
+    "bio": "高高高高之人·睡神",
+    "tags": [],
+    "tone": "magenta",
+    "socials": []
+  },
+  {
+    "id": "w-queen",
+    "name": "W-queen",
+    "location": "深圳",
+    "avatar": "/avatars/friend-9.svg",
+    "bio": "博学多才·鸟类爱好者+1",
+    "tags": [],
+    "tone": "violet",
+    "socials": []
+  },
+  {
+    "id": "sailboat",
+    "name": "⛵️",
+    "location": "广州",
+    "avatar": "/avatars/friend-10.svg",
+    "bio": "美神降临",
+    "tags": [],
+    "tone": "forest",
+    "socials": []
+  },
+  {
+    "id": "lyh",
+    "name": "lyh",
+    "location": "长春",
+    "avatar": "/avatars/friend-11.svg",
+    "bio": "排球爱好者+1·摄影大师",
+    "tags": [],
+    "tone": "gold",
+    "socials": []
+  },
+  {
+    "id": "tree",
+    "name": "🌳",
+    "location": "未知",
+    "avatar": "/avatars/friend-12.svg",
+    "bio": "想念ing",
+    "tags": [],
+    "tone": "green",
+    "socials": []
+  },
+  {
+    "id": "zxtttttt",
+    "name": "zxtttttt",
+    "location": "😭我忘了sorry",
+    "avatar": "/avatars/friend-13.svg",
+    "bio": "很好很有趣的一个人",
+    "tags": [],
+    "tone": "lilac",
+    "socials": []
+  }
+]

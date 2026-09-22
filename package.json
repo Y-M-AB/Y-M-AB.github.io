@@ -1,0 +1,26 @@
+{
+  "name": "friends-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "我和朋友们的个人主页：资料卡片、社交链接、时间线与相册",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "leaflet": "^1.9.4",
+    "next": "16.3.5",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/leaflet": "^1.9.22",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "tailwindcss": "4.3.3",
+    "typescript": "5.9.3"
+  }
+}

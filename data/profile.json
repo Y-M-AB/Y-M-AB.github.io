@@ -1,0 +1,47 @@
+{
+  "name": "M",
+  "siteName": "一个神秘星球",
+  "englishName": "",
+  "title": "一个纯科技成分的始于回忆的产物",
+  "city": "南京",
+  "location": "南京·天津·合肥·武汉·广州·北京·香港·深圳·长春",
+  "avatar": "/avatars/me.svg",
+  "greeting": "你好，欢迎来到我们的秘密基地 👋",
+  "bio": "一个做事有时三分钟热度有时毅力还行的人类（特别鸣谢ds）",
+  "tags": ["people&bird", "hello", "☀️", "🌙", "🌟", "AAA"],
+  "stats": [
+    { "label": "伙伴", "value": "13" },
+    { "label": "项目", "value": "12" },
+    { "label": "认识", "value": "3 年" }
+  ],
+  "focus": [
+    {
+      "title": "这个记录小站",
+      "description": "把自己和朋友们的资料、经历和照片整理到一处。",
+      "icon": "sparkle"
+    },
+    {
+      "title": "一起去广州",
+      "description": "一起去了广州，吃和逛占了行程的大半。",
+      "icon": "location"
+    },
+    {
+      "title": "一起为运动会拼命",
+      "description": "为了运动会一起训练，喊到嗓子都哑了。",
+      "icon": "users"
+    },
+    {
+      "title": "半夜一起讨论难题",
+      "description": "熄灯之后还在讨论那道谁都不服输的题。",
+      "icon": "clock"
+    },
+    {
+      "title": "一群人挤在一个寝室聊八卦",
+      "description": "几个人挤在一张床上，从天黑聊到天亮。",
+      "icon": "wechat"
+    }
+  ],
+  "socials": [
+    { "label": "GitHub", "url": "https://github.com/Y-M-AB", "icon": "github" }
+  ]
+}
