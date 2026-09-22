@@ -79,7 +79,7 @@ export default function HomePage() {
             <SectionHeading
               eyebrow="Map"
               title="我们散落在这些城市"
-              description="点一下光点，就能看到是谁——标注格式是「地点·姓名」，每个光点颜色都不一样。"
+              description="点一下光点，就能看到是谁。"
               icon="location"
             />
             <MapPanel points={mapPoints.points} />
