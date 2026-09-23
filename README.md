@@ -82,7 +82,7 @@ npm run start
 
 > 说明：`accent` 是旧字段，已不影响好友卡片外观（`timeline.json` 里的 `accent` 仍然生效，控制时间线节点的颜色）。
 
-> 说明：`tags` 目前**不在卡片上展示**，数据仍保留着（`/api/friends?tag=xxx` 接口依然能按标签筛选）。
+> 说明：`tags` 目前**不在卡片上展示**，数据仍保留着（方便以后重新加回来）。
 > 想让卡片上重新显示标签，在 `components/FriendCard.tsx` 里把标签那一块加回来即可。
 
 **加好友**：往数组里再复制一段就行，伙伴区标题的「一共 N 位」会自动更新。
@@ -111,21 +111,21 @@ npm run start
 
 ```
 friends-site/
+├─ .github/workflows/
+│  └─ deploy-pages.yml     推送到 main 后自动构建并发布到 GitHub Pages
 ├─ app/
 │  ├─ layout.tsx           全站外壳（标题、字体、背景）
 │  ├─ page.tsx             首页，把各个区块拼起来
-│  ├─ globals.css          设计变量、卡片/按钮/动画等样式
-│  └─ api/                 后端接口（读 JSON 返回数据）
-│     ├─ content/route.ts  GET /api/content  全部数据
-│     ├─ profile/route.ts  GET /api/profile  我的资料
-│     ├─ friends/route.ts  GET /api/friends?tag=&q=  好友（支持筛选）
-│     ├─ timeline/route.ts GET /api/timeline 时间线
-│     └─ gallery/route.ts  GET /api/gallery  相册
+│  └─ globals.css          设计变量、卡片/按钮/动画等样式
 ├─ components/             页面区块组件
 ├─ data/                   ★ 所有内容都在这里
 ├─ lib/                    类型定义、配色表、数据读取
-└─ public/                 头像、相册等静态图片
+└─ public/                 头像、相册、地图轮廓等静态资源
 ```
+
+> 项目是**纯静态**的：不连数据库、不需要后端。
+> `next.config.mjs` 里开了 `output: "export"`，`npm run build` 会额外生成 `out/` 目录，
+> 里面是可以直接丢到任何静态托管（GitHub Pages / 对象存储 / 虚拟主机）的 HTML+CSS+JS。
 
 ---
 
@@ -136,7 +136,8 @@ friends-site/
 - 关于我：自我介绍 + 技能/兴趣标签 + 「我们一起做过的事」
 - 好友卡片墙：**每人一色**（`tone` 控制，粉/绿/蓝/紫/橙），文字、头像圈、分隔线、小条、社交图标整套配色跟着变
 - 时间线：竖向虚线 + 彩色节点 + 标签
-- 相册：瀑布式错位排列，点开大图，支持 `←` `→` 切换、`Esc` 关闭
+- 相册：视频缩略图 + 播放按钮，点开弹出大图/播放器，支持 `←` `→` 切换、`Esc` 关闭
+- **地图**：中国轮廓（本地 GeoJSON，不依赖在线瓦片）+ 每人一个彩色光点，**点击光点**弹出「地点·姓名」，左上角显示定位卡片
 - 滚动进入视口时的淡入动效，并遵循系统的「减少动态效果」设置
 - 响应式：手机 / 平板 / 桌面都能看
 
@@ -144,71 +145,81 @@ friends-site/
 
 ## 5. 部署到 Vercel（推荐）
 
-### 5.1 准备：装 Git
+### 5.1 前提：仓库必须是公开的
 
-去 <https://git-scm.com/download/win> 下载 **Git for Windows**，一路下一步装完。
-装完后**重开一个终端**，输入 `git --version` 能打印版本号就说明好了。
+GitHub Pages 在**免费账号下只支持公开仓库**。私有仓库要开 Pages 需要 GitHub Pro（付费）。
 
-> 这台电脑上已经装过一份**免安装版 Git**，位置在
-> `C:\Users\<你的用户名>\AppData\Local\Programs\PortableGit`，
-> 里面有个 `git-bash.exe`，双击就能用。
-> 如果 VS Code 里提示找不到 Git，把它加进用户 PATH 即可，或者直接装上面那个正式版覆盖。
+> 结论：仓库设为 **Public**。
+> 因为是纯静态站，网站一旦发布，里面的资料本来就是公开的，所以公开仓库不额外泄露什么。
 
-### 5.2 第一次提交（只做一次）
+改法：仓库页面 → **Settings** → 拉到底 **Danger Zone** → **Change visibility** → 选 **Make public**。
 
-在 VS Code 里打开 `friends-site` 文件夹，点左侧 **源代码管理** 图标（三个圆圈连着一条线），
+### 5.2 仓库名必须是 `Y-M-AB.github.io`
 
-1. 点 **初始化仓库**
-2. 在消息框里写 `首次提交`，点 **提交**
-3. 点 **发布分支 / Publish to GitHub**
-4. 选 **GitHub 私有仓库**（推荐，别人搜不到）
-5. 按提示登录 GitHub（会弹浏览器授权，点允许就行）
+这是 GitHub Pages 的**用户主页**约定：
 
-推上去之后，仓库地址形如 `https://github.com/你的用户名/friends-site`。
+| 仓库名 | 发布后的网址 | 需要额外配置吗 |
+| --- | --- | --- |
+| `Y-M-AB.github.io` | `https://y-m-ab.github.io/` | ❌ 不用，路径就在根目录 |
+| `friends-site` | `https://y-m-ab.github.io/friends-site/` | ⚠️ 要改 `basePath`，还得把 `data/*.json` 里所有 `/avatars/...` 改成带前缀的路径 |
 
-> 也可以用命令行做同样的事：
->
-> ```powershell
-> cd d:\code\friends-site
-> git init
-> git add .
-> git commit -m "首次提交"
-> git branch -M main
-> git remote add origin https://github.com/你的用户名/friends-site.git
-> git push -u origin main
-> ```
->
-> 第一次 `git push` 会弹窗让你登录 GitHub，按提示走完即可。
+所以选第一种，**代码零改动**，网址也短。
 
-### 5.3 在 Vercel 上导入
+改法：**Settings** → 顶部 **Repository name** → 改成 `Y-M-AB.github.io` → **Rename**。
 
-1. 打开 <https://vercel.com> → **Sign Up** → 选 **Continue with GitHub** 授权登录
-2. 进 **Add New… → Project**
-3. 找到刚推上去的 `friends-site`，点 **Import**
-4. 框架会自动识别成 **Next.js**，**不用改任何配置**，直接点 **Deploy**
-5. 等 1～2 分钟，就得到一个形如 `https://friends-site-xxxx.vercel.app` 的网址，发给朋友就能看了
+> GitHub 会为旧地址保留跳转，本地的 `origin` 不用立刻改也能推（但建议改，见 5.4）。
 
-**以后更新**：本地改完 `data/*.json` → 提交 → 推送，Vercel 会自动重新部署（大约 1 分钟）。
+### 5.3 开启 Pages（用 GitHub Actions 部署）
 
-### 5.4 注意事项
+**Settings** → 左侧 **Pages** → **Build and deployment**：
+
+- **Source** 选 **GitHub Actions**（不要选 "Deploy from a branch"）
+
+本仓库里已经带了工作流 `.github/workflows/deploy-pages.yml`，
+只要 `main` 分支有推送，它就会自动：装依赖 → `npm run build` → 生成 `out/` → 发布。
+
+**Settings** → 左侧 **Actions** → **General** → 确保 **Workflow permissions** 是
+**Read and write permissions**（一般默认就是）。
+
+### 5.4 推送代码
+
+```powershell
+cd d:\code\friends-site
+
+# 仓库改名后，更新一下远程地址
+git remote set-url origin https://github.com/Y-M-AB/Y-M-AB.github.io.git
+
+git add .
+git commit -m "改为静态导出，部署到 GitHub Pages"
+git push
+```
+
+推完去仓库的 **Actions** 标签页，能看到一次运行；大约 1～3 分钟后变绿 ✅
+
+网站地址：**https://y-m-ab.github.io/**
+
+> 手动触发部署：**Actions** → 左侧 `Deploy to GitHub Pages` → 右上 **Run workflow**。
+
+### 5.5 注意事项
 
 | 事项 | 说明 |
 | --- | --- |
-| **仓库大小** | 相册视频 `public/gallery/2026-09-01.mp4` 有 **73.7 MB**，GitHub 单个文件上限是 100 MB，能推上去，但仓库会比较臃肿、首次推送较慢。 |
-| **流量** | Vercel 免费版每月 100 GB 流量，小站完全够用。大视频会被反复下载，注意别放太多。 |
-| **国内访问** | Vercel 的默认域名在国内速度一般（偶有波动）。想更快可以绑定自己的域名，或用腾讯云 COS / 阿里云 OSS 做静态托管。 |
-| **图片优化** | 项目用了 Next.js 的图片优化，Vercel 上开箱可用。若部署到别处需要额外配置。 |
-| **改数据后没生效** | 确认已经 `git push` 成功；也可以去 Vercel 项目的 **Deployments** 页面看最新一次部署是不是成功状态（绿色）。 |
+| **仓库大小** | 相册视频 `public/gallery/2026-09-01.mp4` 有 **73.7 MB**，超过 GitHub 建议的 50 MB（硬上限 100 MB）。能推上去，但仓库会臃肿。想瘦身可以用 Git LFS 或压缩视频。 |
+| **站点流量** | GitHub Pages 免费版软限制约 100 GB/月、站点 1 GB。小站完全够用。 |
+| **国内访问** | `*.github.io` 在国内**时通时不通**（DNS 污染/间歇性阻断）。如果朋友经常打不开，建议绑定自己的域名 + Cloudflare CDN，或改用腾讯云 COS / 阿里云 OSS 静态托管。 |
+| **API 路由** | 静态导出下**不支持**服务端接口（原来的 `app/api/*` 已删除）。将来若要加留言板、访客统计这类功能，需要换成外部服务（如 Supabase / Cloudflare Workers）。 |
+| **改了数据没生效** | 先确认 `git push` 成功，再去 **Actions** 看最新一次运行是不是绿色；**强制刷新**浏览器（`Ctrl+F5`）清缓存。 |
 
-### 5.5 备选：自己的服务器
+### 5.6 备选：自己的服务器
 
-`npm run build` 后 `npm run start`，用 Nginx 反向代理到 3000 端口，配合 `pm2` 守护进程。
+`npm run build` 后把 `out/` 目录整个丢给 Nginx 当静态根目录即可（不需要 Node 常驻）。
+如果还想跑 SSR 版本，则用 `npm run start` + Nginx 反代 3000 端口 + `pm2` 守护。
 
 ---
 
 ## 6. 换成你们自己的内容
 
 1. 替换 `data/profile.json` 和 `data/friends.json` 里的示例资料（好友现在是 6 位示例数据）。
-2. 把 `public/avatars/*.svg` 换成真实头像（jpg/png 也行），同步改 JSON 里的 `avatar`。
-3. 把 `public/gallery/*.svg` 换成真实照片，同步改 `gallery.json` 里的 `image`。
+3. 把 `public/avatars/*.svg` 换成真实头像（jpg/png 也行），同步改 `profile.json` 和 `friends.json` 里的 `avatar`。
+4. 把媒体文件（照片/视频）放进 `public/gallery/`，同步改 `gallery.json` 里的 `image`。
 4. 改 `app/layout.tsx` 里的 `metadata.title` / `description`。
