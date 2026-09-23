@@ -108,6 +108,11 @@ export type GalleryItem = {
   description?: string;
   /** 图片或视频的路径（视频填 mp4 等文件路径，并把 type 设为 video） */
   image: string;
+  /**
+   * 缩略图路径（可选）。列表里显示用，不填就用 `image`。
+   * 原图动辄几 MB，建议用 `npm run thumbs` 生成压缩版再填这里。
+   */
+  thumb?: string;
   /** 不填默认按图片处理 */
   type?: "image" | "video";
   date?: string;

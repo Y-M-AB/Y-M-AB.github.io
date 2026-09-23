@@ -98,11 +98,28 @@ npm run start
 ### `data/gallery.json` —— 相册
 
 ```json
-{ "id": "g1", "title": "海边的傍晚", "description": "说明", "image": "/gallery/g1.svg", "date": "2025-03" }
+{
+  "id": "p-2026-02-28-1",
+  "title": "2月28日",
+  "type": "image",
+  "image": "/gallery/IMG_20260228_183603.jpg",
+  "thumb": "/gallery/thumbs/IMG_20260228_183603.jpg",
+  "date": "2026-02-28"
+}
 ```
 
-把真实照片放进 `public/gallery/`，然后把 `image` 改成像 `/gallery/photo.jpg` 即可。
-`public/` 下的文件可以直接用 `/文件名` 访问，不需要写 `public`。
+- `type` 不填默认按图片处理；视频填 `"video"`，`image` 写 mp4 路径
+- `thumb` 是**列表里显示的缩略图**，不填就用 `image`；点开大图才加载原图
+- 页面会自动按类型拆成「照片」和「视频」两个区块，数量也会自动统计
+
+**加新照片的流程：**
+
+1. 把照片丢进 `public/gallery/`
+2. 跑 `npm run thumbs` —— 自动在 `public/gallery/thumbs/` 生成 900px 宽的压缩版
+3. 在 `gallery.json` 里加一条，`image` 指原图、`thumb` 指缩略图
+
+> ⚠️ **一定要走缩略图**。实测 16 张原图合计 37.3 MB，
+> 生成缩略图后只剩 1.24 MB（缩小 30 倍）—— 不然访客滚一遍相册手机流量就爆了。
 
 > 改完 JSON 如果页面没变化：检查 JSON 是否有语法错误（多余/缺失的逗号、括号），
 > 或者按 `Ctrl+C` 后重新 `npm run dev`。
