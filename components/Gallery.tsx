@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Icon from "./Icon";
+import Pager from "./Pager";
 import type { GalleryItem } from "@/lib/types";
 
 /** 翻页式：每页显示几个（照片和视频各自独立翻页） */
@@ -109,44 +110,6 @@ export default function Gallery({ items }: { items: GalleryItem[] }) {
     );
   };
 
-  /** 翻页控件：上一页 / 当前页数 / 下一页 */
-  const pager = (
-    page: number,
-    setPage: (updater: (prev: number) => number) => void,
-    pageCount: number
-  ) => {
-    const btn =
-      "inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 transition-colors hover:border-sky-200 hover:text-sky-600 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-slate-200 disabled:hover:text-slate-500";
-
-    return (
-      <div className="mt-8 flex items-center justify-center gap-3">
-        <button
-          type="button"
-          onClick={() => setPage((p) => (p - 1 + pageCount) % pageCount)}
-          disabled={pageCount <= 1}
-          aria-label="上一页"
-          className={btn}
-        >
-          <Icon name="arrowUp" className="h-4 w-4 -rotate-90" />
-        </button>
-
-        <span className="min-w-[3.5rem] text-center text-xs tabular-nums text-slate-400">
-          {page + 1} / {pageCount}
-        </span>
-
-        <button
-          type="button"
-          onClick={() => setPage((p) => (p + 1) % pageCount)}
-          disabled={pageCount <= 1}
-          aria-label="下一页"
-          className={btn}
-        >
-          <Icon name="arrowUp" className="h-4 w-4 rotate-90" />
-        </button>
-      </div>
-    );
-  };
-
   /** 分组小标题：图标 + 名称 + 数量 + 一条填满剩余宽度的分隔线 */
   const groupHeading = (icon: "image" | "play", label: string, count: number, unit: string) => (
     <div className="mb-5 flex items-center gap-3">
@@ -185,7 +148,7 @@ export default function Gallery({ items }: { items: GalleryItem[] }) {
                 renderCard(item, index, positionInGroup)
               )}
             </div>
-            {pager(photoPage, setPhotoPage, photoPages)}
+            <Pager page={photoPage} pageCount={photoPages} onChange={setPhotoPage} />
           </section>
         )}
 
@@ -200,7 +163,7 @@ export default function Gallery({ items }: { items: GalleryItem[] }) {
                 renderCard(item, index, positionInGroup)
               )}
             </div>
-            {pager(videoPage, setVideoPage, videoPages)}
+            <Pager page={videoPage} pageCount={videoPages} onChange={setVideoPage} />
           </section>
         )}
       </div>
