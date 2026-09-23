@@ -66,8 +66,8 @@ export default function HomePage() {
           <div className="mx-auto max-w-6xl">
             <SectionHeading
               eyebrow="Gallery"
-              title="相册 / 作品集"
-              description="一些随手拍的照片和项目截图，点开可以看大图。"
+              title="记忆存储器"
+              description="我们一路走来的痕迹"
               icon="image"
             />
             <Gallery items={gallery} />
