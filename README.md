@@ -46,7 +46,7 @@ npm run start
 | `bio` | 自我介绍（首屏和「关于我」都会用） |
 | `tags` | 技能 / 兴趣标签数组（展示在首屏卡片和「关于我」里） |
 | `since` | 首屏正计时的起始日期，`"YYYY-MM-DD"`（不填默认 `2023-09-01`） |
-| `focus` | 「我们一起做过的事」列表，`icon` 可选：`sparkle`/`clock`/`users`/`image`/`link` |
+| `focus` | 「我们一起做过的事」列表，`icon` 可选：`sparkle`/`clock`/`users`/`image`/`location`/`wechat`/`calendar`/`leaf`/`link` |
 | `socials` | 社交链接，`icon` 可选：`github`/`mail`/`twitter`/`bilibili`/`weibo`/`zhihu`/`steam`/`youtube`/`wechat`/`link` |
 
 **关于正计时**：首屏卡片上的「我们一起走过了 X 年 X 月 X 日」从 `since` 那天算起，

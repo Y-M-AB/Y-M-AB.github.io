@@ -50,6 +50,11 @@
       "title": "在全年无休的日子里寻找乐趣",
       "description": "全年无休的那些日子里把上邦吃了个遍",
       "icon": "calendar"
+    },
+    {
+      "title": "一起去采茶",
+      "description": "看似采茶，实则是盯着大太阳当大冤种",
+      "icon": "leaf"
     }
   ],
   "socials": [

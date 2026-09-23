@@ -19,6 +19,7 @@ export type IconName =
   | "image"
   | "play"
   | "sparkle"
+  | "leaf"
   | "clock"
   | "arrowUp";
 

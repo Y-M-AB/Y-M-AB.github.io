@@ -143,6 +143,13 @@ export default function Icon({ name, className = "h-5 w-5" }: IconProps) {
           <path d="M12 3.5 13.5 9l5.5 1.5-5.5 1.5L12 17.5 10.5 12 5 10.5 10.5 9z" />
         </svg>
       );
+    case "leaf":
+      return (
+        <svg {...stroke}>
+          <path d="M4 20C4 11.2 11.2 4 20 4c0 8.8-7.2 16-16 16Z" />
+          <path d="M4 20c3.6-5.6 8.2-10.2 13.6-13.6" />
+        </svg>
+      );
     case "clock":
       return (
         <svg {...stroke}>
