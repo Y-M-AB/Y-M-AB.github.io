@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getProfile } from "@/lib/data";
+import StarField from "@/components/StarField";
 import "./globals.css";
 
 const profile = getProfile();
@@ -20,6 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="zh-CN">
       <body className="min-h-screen antialiased">
         <div className="aurora" aria-hidden />
+        <StarField />
         {children}
       </body>
     </html>

@@ -82,6 +82,57 @@ body {
   background: radial-gradient(circle at 60% 40%, #d1fae5, transparent 65%);
 }
 
+/* ---------- 背景星星（统一黄色，共 14 颗，见 components/StarField.tsx） ---------- */
+.starfield {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.starfield-star {
+  position: absolute;
+  display: block;
+  background: #eab308;
+  /* 四角星形状 */
+  clip-path: polygon(
+    50% 0%,
+    59% 41%,
+    100% 50%,
+    59% 59%,
+    50% 100%,
+    41% 59%,
+    0% 50%,
+    41% 41%
+  );
+  animation: twinkle 6s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: var(--star-o, 0.6);
+  }
+  50% {
+    opacity: calc(var(--star-o, 0.6) * 0.28);
+  }
+}
+
+/* 窄屏时整层再淡一点，避免压在卡片上显得脏 */
+@media (max-width: 640px) {
+  .starfield {
+    opacity: 0.5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .starfield-star {
+    animation: none;
+    opacity: var(--star-o, 0.6);
+  }
+}
+
 /* ---------- 卡片 ---------- */
 .card {
   border-radius: 1.5rem;
