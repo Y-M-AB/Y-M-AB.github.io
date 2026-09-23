@@ -5,10 +5,10 @@
  * 所以放在 lib 里，**不要**加 "use client"。
  */
 
-export type ElapsedYMD = {
-  years: number;
-  months: number;
+export type ElapsedDHM = {
   days: number;
+  hours: number;
+  minutes: number;
 };
 
 /** 解析 "YYYY-MM-DD"（也容忍 "2023-9-1"），失败时用 fallback */
@@ -22,39 +22,26 @@ export function parseDate(value: string | undefined, fallback: string): Date {
 }
 
 /**
- * 按「自然年月日」算差值（不是简单除以 365 天）。
+ * 从 from 到 to 一共走过多少「天 / 时 / 分」。
  *
- * 例：2023-09-01 → 2026-09-23 得 `{ years: 3, months: 0, days: 22 }`
+ * 例：2023-09-01 00:00 → 2026-09-23 14:30 得 `{ days: 1118, hours: 14, minutes: 30 }`
  *
- * 做法：先按月推进，找到最后一个「不超过 to 的起始日同月日」，
- * 剩下的零头再按天算 —— 这样 31 号、闰年、大小月都不会算错。
+ * 直接拿毫秒差换算总分钟数，再拆成天 / 时 / 分 —— 不涉及月份折算，没有闰年、大小月的坑。
+ * 起始时刻取自 `parseDate()`，即当天本地时间 00:00:00。
  */
-export function diffYMD(from: Date, to: Date): ElapsedYMD {
-  // 先把两边的「时分秒」归零 —— 否则今天的 14:00 会被算成 22.58 天，四舍五入后多出一天
-  const a = new Date(from.getFullYear(), from.getMonth(), from.getDate());
-  const b = new Date(to.getFullYear(), to.getMonth(), to.getDate());
+export function diffDHM(from: Date, to: Date): ElapsedDHM {
+  const ms = to.getTime() - from.getTime();
+  if (ms <= 0) return { days: 0, hours: 0, minutes: 0 };
 
-  if (b.getTime() <= a.getTime()) {
-    return { years: 0, months: 0, days: 0 };
-  }
-
-  /** 从 a 起往后推 n 个月的那一天（自动收窄到当月最后一天） */
-  const anchorOf = (n: number) => {
-    const totalMonth = a.getMonth() + n;
-    const y = a.getFullYear() + Math.floor(totalMonth / 12);
-    const m = ((totalMonth % 12) + 12) % 12;
-    const lastDayOfMonth = new Date(y, m + 1, 0).getDate();
-    return new Date(y, m, Math.min(a.getDate(), lastDayOfMonth));
+  const totalMinutes = Math.floor(ms / 60_000);
+  return {
+    days: Math.floor(totalMinutes / (60 * 24)),
+    hours: Math.floor(totalMinutes / 60) % 24,
+    minutes: totalMinutes % 60,
   };
+}
 
-  let months = (b.getFullYear() - a.getFullYear()) * 12 + (b.getMonth() - a.getMonth());
-  if (months < 0) months = 0;
-  while (months > 0 && anchorOf(months).getTime() > b.getTime()) {
-    months -= 1;
-  }
-
-  const anchor = anchorOf(months);
-  const days = Math.round((b.getTime() - anchor.getTime()) / 86_400_000);
-
-  return { years: Math.floor(months / 12), months: months % 12, days };
+/** 距离下一个整分钟还有多少毫秒（用来安排下一次刷新，既准时又不空转） */
+export function msToNextMinute(now: Date): number {
+  return 60_000 - (now.getTime() % 60_000);
 }

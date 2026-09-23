@@ -1,13 +1,13 @@
 import SocialLinks from "./SocialLinks";
 import Icon from "./Icon";
 import ElapsedTime, { DEFAULT_SINCE } from "./ElapsedTime";
-import { diffYMD, parseDate } from "@/lib/elapsed";
+import { diffDHM, parseDate } from "@/lib/elapsed";
 import type { Profile } from "@/lib/types";
 
 export default function Hero({ profile }: { profile: Profile }) {
   const since = profile.since ?? DEFAULT_SINCE;
   // 构建时先算一份，写进静态 HTML；客户端挂载后会自己重算并持续更新
-  const initialElapsed = diffYMD(parseDate(profile.since, DEFAULT_SINCE), new Date());
+  const initialElapsed = diffDHM(parseDate(profile.since, DEFAULT_SINCE), new Date());
 
   return (
     <section id="hero" className="section-anchor relative px-5 pb-4 pt-14 sm:px-8 sm:pt-20">

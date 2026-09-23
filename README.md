@@ -49,8 +49,8 @@ npm run start
 | `focus` | 「我们一起做过的事」列表，`icon` 可选：`sparkle`/`clock`/`users`/`image`/`location`/`wechat`/`calendar`/`leaf`/`link` |
 | `socials` | 社交链接，`icon` 可选：`github`/`mail`/`twitter`/`bilibili`/`weibo`/`zhihu`/`steam`/`youtube`/`wechat`/`link` |
 
-**关于正计时**：首屏卡片上的「我们一起走过了 X 年 X 月 X 日」从 `since` 那天算起，
-按**自然年月日**计算（不是除 365 天），客户端每分钟自动校准一次，跨过零点会自己 +1 天。
+**关于正计时**：首屏卡片上的「我们一起走过了 X 天 X 时 X 分」从 `since` 那天 00:00 算起，
+按毫秒差换算（不涉及月份折算，没有闰年/大小月的坑）；客户端**精确对齐到每个整分钟**自动刷新。
 想改起始日：改 `profile.json` 里的 `since`。
 
 ### `data/friends.json` —— 好友列表
