@@ -2,7 +2,8 @@ import profileJson from "@/data/profile.json";
 import friendsJson from "@/data/friends.json";
 import timelineJson from "@/data/timeline.json";
 import galleryJson from "@/data/gallery.json";
-import type { GalleryItem, Person, Profile, TimelineItem } from "./types";
+import musingsJson from "@/data/musings.json";
+import type { GalleryItem, Musings, Person, Profile, TimelineItem } from "./types";
 
 /**
  * 数据访问层：统一从 /data/*.json 读取内容。
@@ -25,6 +26,10 @@ export function getGallery(): GalleryItem[] {
   return galleryJson as unknown as GalleryItem[];
 }
 
+export function getMusings(): Musings {
+  return musingsJson as unknown as Musings;
+}
+
 /** 汇总所有好友的标签，按出现次数从多到少排序 */
 export function getAllFriendsTags(): string[] {
   const counter = new Map<string, number>();
@@ -43,5 +48,6 @@ export function getSiteContent() {
     friends: getFriends(),
     timeline: getTimeline(),
     gallery: getGallery(),
+    musings: getMusings(),
   };
 }

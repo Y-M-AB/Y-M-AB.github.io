@@ -10,6 +10,7 @@ const NAV_ITEMS = [
   { href: "#timeline", label: "时间线" },
   { href: "#gallery", label: "相册" },
   { href: "#map", label: "地图" },
+  { href: "#musings", label: "碎碎念" },
   { href: "#contact", label: "联系" },
 ];
 

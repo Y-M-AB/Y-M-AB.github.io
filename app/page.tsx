@@ -4,17 +4,19 @@ import FriendsSection from "@/components/FriendsSection";
 import Gallery from "@/components/Gallery";
 import Hero from "@/components/Hero";
 import MapPanel from "@/components/MapPanel";
+import MusingsSection from "@/components/MusingsSection";
 import SectionHeading from "@/components/SectionHeading";
 import SiteHeader from "@/components/SiteHeader";
 import Timeline from "@/components/Timeline";
 import { buildMapPoints } from "@/lib/cities";
-import { getFriends, getGallery, getProfile, getTimeline } from "@/lib/data";
+import { getFriends, getGallery, getMusings, getProfile, getTimeline } from "@/lib/data";
 
 export default function HomePage() {
   const profile = getProfile();
   const friends = getFriends();
   const timeline = getTimeline();
   const gallery = getGallery();
+  const musings = getMusings();
   const mapPoints = buildMapPoints(friends, {
     name: profile.name,
     city: profile.city,
@@ -88,6 +90,12 @@ export default function HomePage() {
                 尚未落点：{[...mapPoints.unknown, ...mapPoints.missing].join(" · ")}
               </p>
             )}
+          </div>
+        </section>
+
+        <section id="musings" className="section-anchor px-5 py-20 sm:px-8">
+          <div className="mx-auto max-w-6xl">
+            <MusingsSection data={musings} />
           </div>
         </section>
 

@@ -117,3 +117,18 @@ export type GalleryItem = {
   type?: "image" | "video";
   date?: string;
 };
+
+/** 写在最后的碎碎念（页面末尾的一条小字备注） */
+export type Musings = {
+  /** 标题上方的英文眉标，不填默认 Epilogue */
+  eyebrow?: string;
+  title: string;
+  /** 小字备注的标签，例如「来自作者的碎碎念」；不填则不显示这一行 */
+  noteLabel?: string;
+  /**
+   * 小字备注正文。
+   * 写一个字符串就是单段；写成字符串数组就是多段（每项一段）。
+   * 数组里某一项写成空字符串 `""`，就表示在这里空一行。
+   */
+  note: string | string[];
+};
