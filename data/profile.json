@@ -35,6 +35,18 @@
       "title": "一群人挤在一个寝室聊八卦",
       "description": "几个人挤在一张床上，从天黑聊到天亮。",
       "icon": "wechat"
+    },
+    {
+      "title": "一起去四川",
+      "icon": "location"
+    },
+    {
+      "title": "一起复活台风后的校园",
+      "icon": "sparkle"
+    },
+    {
+      "title": "在全年无休的日子里寻找乐趣",
+      "icon": "calendar"
     }
   ],
   "socials": [
