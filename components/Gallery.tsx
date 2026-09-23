@@ -52,7 +52,13 @@ export default function Gallery({ items }: { items: GalleryItem[] }) {
   const photoSlice = photos.slice(photoPage * PER_PAGE, photoPage * PER_PAGE + PER_PAGE);
   const videoSlice = videos.slice(videoPage * PER_PAGE, videoPage * PER_PAGE + PER_PAGE);
 
-  const renderCard = (item: GalleryItem, index: number, positionInGroup: number) => (
+  const renderCard = (item: GalleryItem, index: number, positionInGroup: number) => {
+    // 自动生成时标题就是日期（如 "11月21日"），这种不当作标题显示；
+    // 只有真正的标题或描述存在时，卡片下方才会出现文字栏。
+    const captionTitle = /^\d{1,2}\s*月\s*\d{1,2}\s*日$/.test(item.title.trim()) ? "" : item.title;
+    const hasCaption = Boolean(captionTitle || item.description);
+
+    return (
     <button
       key={item.id}
       type="button"
@@ -91,14 +97,17 @@ export default function Gallery({ items }: { items: GalleryItem[] }) {
           </>
         )}
       </div>
-      <div className="px-5 py-4">
-        <h3 className="text-sm font-semibold text-ink-900">{item.title}</h3>
-        {item.description && (
-          <p className="mt-1 text-xs leading-6 text-slate-400">{item.description}</p>
-        )}
-      </div>
+      {hasCaption && (
+        <div className="px-5 py-4">
+          {captionTitle && <h3 className="text-sm font-semibold text-ink-900">{captionTitle}</h3>}
+          {item.description && (
+            <p className="mt-1 text-xs leading-6 text-slate-400">{item.description}</p>
+          )}
+        </div>
+      )}
     </button>
-  );
+    );
+  };
 
   /** 翻页控件：上一页 / 当前页数 / 下一页 */
   const pager = (
@@ -226,7 +235,9 @@ export default function Gallery({ items }: { items: GalleryItem[] }) {
             )}
             <div className="flex items-center justify-between gap-4 px-5 py-4">
               <div>
-                <h3 className="text-sm font-semibold text-ink-900">{current.title}</h3>
+                <h3 className="text-sm font-semibold tabular-nums text-ink-900">
+                  {openIndex! + 1} / {items.length}
+                </h3>
                 {current.description && (
                   <p className="mt-1 text-xs leading-6 text-slate-500">{current.description}</p>
                 )}
