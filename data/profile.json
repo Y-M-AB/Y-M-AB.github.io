@@ -38,14 +38,17 @@
     },
     {
       "title": "一起去四川",
+      "description": "大冬天一起去四川集训，年二十九还在上课",
       "icon": "location"
     },
     {
       "title": "一起复活台风后的校园",
+      "description": "一片狼藉的校园里一群免费苦力在库库干活",
       "icon": "sparkle"
     },
     {
       "title": "在全年无休的日子里寻找乐趣",
+      "description": "全年无休的那些日子里把上邦吃了个遍",
       "icon": "calendar"
     }
   ],
