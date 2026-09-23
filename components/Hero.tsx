@@ -1,8 +1,14 @@
 import SocialLinks from "./SocialLinks";
 import Icon from "./Icon";
+import ElapsedTime, { DEFAULT_SINCE } from "./ElapsedTime";
+import { diffYMD, parseDate } from "@/lib/elapsed";
 import type { Profile } from "@/lib/types";
 
 export default function Hero({ profile }: { profile: Profile }) {
+  const since = profile.since ?? DEFAULT_SINCE;
+  // 构建时先算一份，写进静态 HTML；客户端挂载后会自己重算并持续更新
+  const initialElapsed = diffYMD(parseDate(profile.since, DEFAULT_SINCE), new Date());
+
   return (
     <section id="hero" className="section-anchor relative px-5 pb-4 pt-14 sm:px-8 sm:pt-20">
       <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
@@ -64,13 +70,9 @@ export default function Hero({ profile }: { profile: Profile }) {
             <p className="mt-5 text-center text-base font-semibold text-ink-900">{profile.name}</p>
             <p className="mt-1 text-center text-sm text-slate-400">{profile.title}</p>
 
-            <div className="mt-6 grid grid-cols-3 divide-x divide-slate-100 rounded-2xl bg-slate-50/70 py-4">
-              {profile.stats.map((stat) => (
-                <div key={stat.label} className="text-center">
-                  <p className="text-xl font-semibold text-ink-900">{stat.value}</p>
-                  <p className="mt-1 text-xs text-slate-400">{stat.label}</p>
-                </div>
-              ))}
+            <div className="mt-6 rounded-2xl bg-slate-50/70 px-4 py-4">
+              <p className="text-center text-xs tracking-wide text-slate-400">我们一起走过了</p>
+              <ElapsedTime since={since} initial={initialElapsed} />
             </div>
 
             <div className="mt-5 flex flex-wrap justify-center gap-2">

@@ -9,11 +9,7 @@
   "greeting": "你好，欢迎来到我们的秘密基地 👋",
   "bio": "一个做事有时三分钟热度有时毅力还行的人类（特别鸣谢ds）",
   "tags": ["people&bird", "hello", "☀️", "🌙", "🌟", "AAA"],
-  "stats": [
-    { "label": "伙伴", "value": "13" },
-    { "label": "项目", "value": "12" },
-    { "label": "认识", "value": "3 年" }
-  ],
+  "since": "2023-09-01",
   "focus": [
     {
       "title": "这个记录小站",

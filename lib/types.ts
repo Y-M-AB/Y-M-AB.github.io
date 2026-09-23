@@ -46,11 +46,6 @@ export type SocialLink = {
   icon: IconName;
 };
 
-export type Stat = {
-  label: string;
-  value: string;
-};
-
 export type FocusItem = {
   title: string;
   /** 说明文字，不填就只显示标题 */
@@ -75,7 +70,8 @@ export type Profile = {
   tone?: ToneKey;
   bio: string;
   tags: string[];
-  stats: Stat[];
+  /** 正计时的起始日期，格式 "YYYY-MM-DD"（不填默认 2023-09-01） */
+  since?: string;
   socials: SocialLink[];
   focus?: FocusItem[];
 };
