@@ -15,7 +15,7 @@ export default function FriendCard({ person }: { person: Person }) {
       <div className={`pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full ${tone.glow} opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100`} />
 
       <div className="relative flex items-center gap-4">
-        <div className={`h-16 w-16 shrink-0 overflow-hidden rounded-2xl ring-4 ${tone.ring}`}>
+        <div className={`h-16 w-16 shrink-0 overflow-hidden rounded-full ring-4 ${tone.ring}`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={person.avatar}
